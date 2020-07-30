@@ -1,0 +1,80 @@
+@model LoanManager.Models.MenuPermission
+
+<link href="~/theme/Select2/select2.min.css" rel="stylesheet" />
+<script src="~/theme/Select2/select2.full.min.js"></script>
+ 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.select2').select2({ maximumSelectionLength: 1 });
+        });
+    </script>
+@Html.AjaxFormSubmiterV2("myForm", "tbMenuPermission", true,  Localizer["ActionSuccess"].Value)
+
+<form id="myForm" asp-action="Edit" role="form" enctype="multipart/form-data">
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = Localizer["FillRequired"].Value })
+    <div class="modal-body form-horizontal">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label asp-for="MenuId" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <select asp-for="MenuId" asp-items="ViewBag.Menus" multiple="multiple" style="width: 100%" class="form-control select2"><option value="">Select</option> </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="RoleId" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <select asp-for="RoleId" asp-items="ViewBag.Roles" multiple="multiple" style="width: 100%" class="form-control select2"><option value="">Select</option> </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UserId" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <select asp-for="UserId" asp-items="ViewBag.Users" multiple="multiple" style="width: 100%" class="form-control select2"><option value="">Select</option> </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SortOrder" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="SortOrder" class="form-control" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label asp-for="IsCreate" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="IsCreate" style="margin-top:10px" type="checkbox" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IsRead" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="IsRead" style="margin-top:10px" type="checkbox" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IsUpdate" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="IsUpdate" style="margin-top:10px" type="checkbox" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IsDelete" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="IsDelete" style="margin-top:10px" type="checkbox" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IsActive" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="IsActive" style="margin-top:10px" type="checkbox" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    @await Html.PartialAsync("_ModalFooter", new ModalFooter { CancelButtonText = Localizer["Cancel"].Value, SubmitButtonText = Localizer["Submit"].Value })
+</form>

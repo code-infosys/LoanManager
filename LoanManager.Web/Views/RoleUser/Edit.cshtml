@@ -1,0 +1,38 @@
+@model LoanManager.Models.RoleUser
+
+<link href="~/theme/Select2/select2.min.css" rel="stylesheet" />
+<script src="~/theme/Select2/select2.full.min.js"></script>
+ 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.select2').select2({ maximumSelectionLength: 1 });
+        });
+    </script>
+@Html.AjaxFormSubmiterV2("myForm", "tbRoleUser", true,  Localizer["ActionSuccess"].Value)
+
+<form id="myForm" asp-action="Edit" role="form" enctype="multipart/form-data">
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = Localizer["FillRequired"].Value })
+    <div class="modal-body form-horizontal">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label asp-for="RoleId" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <select asp-for="RoleId" asp-items="ViewBag.Roles" multiple="multiple" style="width: 100%" class="form-control select2"><option value="">Select</option> </select>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label asp-for="UserId" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <select asp-for="UserId" asp-items="ViewBag.Users" multiple="multiple" style="width: 100%" class="form-control select2"><option value="">Select</option> </select>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    @await Html.PartialAsync("_ModalFooter", new ModalFooter { CancelButtonText = Localizer["Cancel"].Value, SubmitButtonText = Localizer["Submit"].Value })
+</form>

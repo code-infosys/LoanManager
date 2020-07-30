@@ -1,0 +1,74 @@
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@Localizer["Forgot Password"]</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <link rel="stylesheet" href="~/theme/bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/theme/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="~/theme/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/theme/dist/css/AdminLTE.min.css">
+    <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
+    <link rel="stylesheet" href="~/theme/dist/css/skins/_all-skins.min.css">
+    <!-- jQuery 3 -->
+    <script src="~/theme/bower_components/jquery/dist/jquery.min.js"></script>
+    <!-- Google Font -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+    <link href="~/notifire/noti.css" rel="stylesheet" />
+    <script src="~/notifire/notij.js"></script>
+
+</head>
+<body class="hold-transition login-page">
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="~/Home/"><b>LoanManager</b></a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            @if (ViewBag.Valid==true)
+            {
+            <form asp-action="forgot" id="frmforgot" method="post">
+                <div class="form-group has-feedback">
+                    <input type="password" class="form-control" name="Password" placeholder="Password">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="password" class="form-control" name="ConfirmPassword" placeholder="Confirm Password">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <input type="hidden" name="id" value="@ViewBag.id" />
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">@Localizer["Update"]</button>
+                    </div>
+                    <!-- /.col -->
+                </div>
+            </form>
+            <a href="~/Auth/Login" class="text-center">@Localizer["Login"]</a>
+            }
+            else
+            {
+            <h3 style="color:red;">@Localizer["You are not valid person"]</h3>
+            }
+        </div>
+        <!-- /.login-box-body -->
+    </div>
+    <!-- /.login-box -->
+    <script type="text/javascript">
+    @Html.JsonFormSubmitter("frmforgot") 
+    </script>
+
+</body>
+</html>
+
+

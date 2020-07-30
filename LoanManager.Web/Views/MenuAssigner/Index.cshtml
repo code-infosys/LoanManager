@@ -1,0 +1,324 @@
+@model IEnumerable<LoanManager.Models.Menu>
+
+@{
+    ViewData["Title"] = "Menu Assignment";
+}
+
+<section class="content-wrapper">
+    <!-- Small boxes (Stat box) -->
+    <section class="content-header">
+        <h1>
+            @ViewBag.Title
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="~/Home/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        </ol>
+    </section>
+
+    <div class="content">
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <div class="btn-group">
+
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body" style="overflow-x:auto">
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th style="color:brown;font-size:15px;vertical-align:middle"> Menu Name </th>
+                                    <th style="color:brown;font-size:15px;">
+                                        <table class="table" style="margin-bottom:0px!important; border-top:10px solid #a7c8b1">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="width:15%;">
+                                                        Assign Permission
+                                                        <button id="btnAssignAll" class="btn btn-default btn-xs"> Assign All</button>
+                                                        <button type="button" title="Click to delete all" class="btn btn-danger btn-xs" id="btnDeleteAll"><i class="fa fa-trash"></i></button>
+                                                    </td>
+                                                    <td style="width:10%;">
+                                                        Role
+                                                        <select asp-items="ViewBag.Roles" id="ddlRoles" style="height:23px;" class=""><option value="">Select</option> </select>
+                                                    </td>
+                                                    <td style="width:10%;">
+                                                        User
+                                                        <select asp-items="ViewBag.Users" id="ddlUsers" style="height:23px;"><option value="">Select</option> </select>
+                                                    </td>
+                                                    <td style="width:10%;">
+                                                        SortOrder
+                                                    </td>
+                                                    <td style="width:10%;">
+                                                        IsCreate
+                                                    </td>
+                                                    <td style="width:10%;">
+                                                        IsRead
+                                                    </td>
+                                                    <td style="width:10%;">
+                                                        IsUpdate
+                                                    </td>
+                                                    <td style="width:10%;">
+                                                        IsDelete
+                                                    </td>
+                                                    <td style="width:10%;">
+                                                        IsActive
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int index = 0;
+
+                                    foreach (var menus in Model)
+                                    {
+                                        <tr class="table-bordered" style="border:10px solid #a7c8b1">
+                                            <td style="width:15%;vertical-align:middle;"><strong> @Html.Raw(menus.MenuIcon) @menus.MenuText </strong>  </td>
+                                            <td>
+                                                <table class="table">
+
+                                                    <tbody>
+                                                        @foreach (var item in menus.MenuPermission_MenuIds.Where(i => i.RoleId == ViewBag.RoleId).ToArray())
+                                                        {
+                                                            <tr>
+                                                                <td style="width:15%;">
+                                                                    <input type="button" class="btn btn-success btn-xs" value="Assigned" id="btnAddAssign_@item.MenuId" />
+                                                                    <button type="button" class="btn btn-danger btn-xs deleteall" id="AddbtnDelete_@menus.Id" onclick="Delete(@item.Id,this,@item.MenuId,@item.SortOrder)"><i class="fa fa-trash"></i></button>
+                                                                </td>
+                                                                <td style="width:10%;">
+                                                                    <label>@ViewBag.RoleName</label>
+                                                                </td>
+                                                                <td style="width:10%;">
+                                                                    <div> @Html.DisplayFor(modelItem => item.User_UserId.UserName) </div>
+                                                                    <button type="button" class="btn btn-facebook btn-xs" onclick="AddAssignWithUser(@menus.Id,@ViewBag.RoleId,@menus.SortOrder)" title="Assign to User">
+                                                                        <i class="fa fa-plus"></i> <i class="fa fa-user"></i>
+                                                                    </button>
+                                                                </td>
+                                                                <td style="width:10%;">
+                                                                    <input type="number" style="width:50px;" onchange="Update(@item.Id,'SortOrder',this)" value="@item.SortOrder" />
+                                                                </td>
+                                                                <td style="width:10%;">
+                                                                    @{
+                                                                        string chkd = "checked";
+                                                                        if (item.IsCreate == false)
+                                                                        {
+                                                                            chkd = "";
+                                                                        }
+                                                                        <input type="checkbox" id="IsCreate_@item.MenuId" onclick="Update(@item.Id,'IsCreate',this)" @chkd />
+                                                                    }
+                                                                </td>
+                                                                <td style="width:10%;">
+                                                                    @{
+                                                                        string chkdIsRead = "checked";
+                                                                        if (item.IsRead == false)
+                                                                        {
+                                                                            chkdIsRead = "";
+                                                                        }
+                                                                        <input type="checkbox" id="IsRead_@item.MenuId" onclick="Update(@item.Id,'IsRead',this)" @chkdIsRead />
+                                                                    }
+                                                                </td>
+                                                                <td style="width:10%;">
+                                                                    @{
+                                                                        string chkdIsUpdate = "checked";
+                                                                        if (item.IsUpdate == false)
+                                                                        {
+                                                                            chkdIsUpdate = "";
+                                                                        }
+                                                                        <input type="checkbox" id="IsUpdate_@item.MenuId" onclick="Update(@item.Id,'IsUpdate',this)" @chkdIsUpdate />
+                                                                    }
+                                                                </td>
+                                                                <td style="width:10%;">
+
+                                                                    @{
+                                                                        string chkdIsDelete = "checked";
+                                                                        if (item.IsDelete == false)
+                                                                        {
+                                                                            chkdIsDelete = "";
+                                                                        }
+                                                                        <input type="checkbox" id="IsDelete_@item.MenuId" onclick="Update(@item.Id,'IsDelete',this)" @chkdIsDelete />
+                                                                    }
+                                                                </td>
+                                                                <td style="width:10%;">
+                                                                    @{
+                                                                        string chkdIsActive = "checked";
+                                                                        if (item.IsActive == false)
+                                                                        {
+                                                                            chkdIsActive = "";
+                                                                        }
+                                                                        <input type="checkbox" id="IsActive_@item.MenuId" onclick="Update(@item.Id,'IsActive',this)" @chkdIsActive />
+                                                                    }
+                                                                </td>
+
+                                                            </tr>
+
+                                                        }
+
+
+                                                        @{
+                                                            var men = menus.MenuPermission_MenuIds.FirstOrDefault(i => i.RoleId == ViewBag.RoleId);
+
+                                                            if (men == null)
+                                                            {
+                                                                <tr>
+                                                                    <td style="width:15%">
+                                                                        <input type="button" class="btn btn-default btn-xs assignall" id="btnAddAssign_@menus.Id" onclick="AddAssign(@menus.Id,@ViewBag.RoleId,@menus.SortOrder)" value="Assign This" />
+                                                                        <button type="button" class="btn btn-danger btn-xs deleteall" id="AddbtnDelete_@menus.Id" style="display:none;"><i class="fa fa-trash"></i></button>
+                                                                    </td>
+                                                                    <th style="width:10%;">
+                                                                        @ViewBag.RoleName
+                                                                    </th>
+                                                                    <th style="width:10%;">
+                                                                        <button type="button" class="btn btn-facebook btn-xs" onclick="AddAssignWithUser(@menus.Id,@ViewBag.RoleId,@menus.SortOrder)" title="Assign to User">
+                                                                            <i class="fa fa-plus"></i> <i class="fa fa-user"></i>
+                                                                        </button>
+                                                                    </th>
+                                                                    <th style="width:10%;">
+                                                                        <input type="number" style="width:50px;" id="AddSortOrder_@menus.Id" value="@menus.SortOrder" />
+                                                                    </th>
+                                                                    <th style="width:10%;">
+                                                                        <input type="checkbox" id="AddIsCreate_@menus.Id" checked />
+                                                                    </th>
+                                                                    <th style="width:10%;">
+                                                                        <input type="checkbox" id="AddIsRead_@menus.Id" checked />
+                                                                    </th>
+                                                                    <th style="width:10%;">
+                                                                        <input type="checkbox" id="AddIsUpdate_@menus.Id" checked />
+                                                                    </th>
+                                                                    <th style="width:10%;">
+                                                                        <input type="checkbox" id="AddIsDelete_@menus.Id" checked />
+                                                                    </th>
+                                                                    <th style="width:10%;">
+                                                                        <input type="checkbox" id="AddIsActive_@menus.Id" checked />
+                                                                    </th>
+                                                                </tr>
+                                                            }
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+
+                                        index++;
+                                    }
+                                }
+                            </tbody>
+
+                        </table>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+@section ScriptsOrCss
+    {
+    <script>
+
+    $("#ddlRoles").on("change", function () {
+         location = "/MenuAssigner/?roleId=" + $(this).val();
+    });
+
+    $("#btnAssignAll").on("click", function () {
+        $(".assignall").click();
+    });
+
+    $("#btnDeleteAll").on("click", function () {
+        $(".deleteall").click();
+    });
+
+    function AddAssign(menuId, roleId, sortOrder) {
+        Assign(menuId, roleId, sortOrder);
+    }
+
+    function AddAssignWithUser(menuId, roleId, sortOrder) {
+        var value = $("#ddlUsers").val();
+        if (value != "") {
+            Assign(menuId, roleId, sortOrder, value);
+        }
+        else
+            $.sticky('Select User First from above dropdown ', { stickyClass: 'warning' });
+    }
+
+    function Assign(menuId, roleId, sortOrder, user = null) {
+
+            $.ajax({
+                url: "/MenuAssigner/AddMenuPermission",
+                type: "Post",
+                data: { 'menuId': menuId, 'roleId': roleId, 'sortOrder': sortOrder, 'user': user },
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == "success") {
+                        $("#btnAddAssign_" + menuId).attr("value", "Assigned");
+                        $("#btnAddAssign_" + menuId).addClass("btn btn-success btn-xs");
+                        $("#btnAddAssign_" + menuId).removeAttr("onclick");
+                        $.sticky(' Assigned Successfully ', { stickyClass: 'success' });
+
+                        $("#AddSortOrder_" + menuId).attr("onchange", "Update('" + data.message + "','SortOrder',this)");
+                        $("#AddIsCreate_" + menuId).attr("onclick", "Update('" + data.message + "','IsCreate',this)");
+                        $("#AddIsRead_" + menuId).attr("onclick", "Update('" + data.message + "','IsRead',this)");
+                        $("#AddIsUpdate_" + menuId).attr("onclick", "Update('" + data.message + "','IsUpdate',this)");
+                        $("#AddIsDelete_" + menuId).attr("onclick", "Update('" + data.message + "','IsDelete',this)");
+                        $("#AddIsActive_" + menuId).attr("onclick", "Update('" + data.message + "','IsActive',this)");
+
+                        $("#AddbtnDelete_" + menuId).show();
+                        $("#AddbtnDelete_" + menuId).attr("onclick", "Delete('" + data.message + "',this,"+menuId+","+sortOrder+")");
+
+                    }
+
+                }
+            });
+
+        }
+
+        function Delete(id,thisVal,menuId,sortOrder) {
+            $.ajax({
+                url: "/MenuAssigner/Delete",
+                type: "Post",
+                data: { 'id': id },
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == "success") {
+                        $.sticky(' Deleted Successfully ', { stickyClass: 'success' });
+                        $(thisVal).hide();
+                        $("#btnAddAssign_" + menuId).attr("value", "Assign This");
+                        $("#btnAddAssign_" + menuId).removeClass().addClass("btn btn-default btn-xs assignall");
+                        $("#btnAddAssign_" + menuId).attr("onclick", "AddAssign('" + menuId + "','@ViewBag.RoleId','"+sortOrder+"')");
+                    }
+                }
+            });
+        }
+
+        function Update(id, field, thisVal) {
+            var value;
+            if (field == 'SortOrder')
+                value = $(thisVal).val();
+            else if (field == 'IsCreate' || field == 'IsRead' || field == 'IsUpdate' || field == 'IsDelete'|| field == 'IsActive')
+                value = $(thisVal).prop("checked");
+
+            $.ajax({
+                url: "/MenuAssigner/Update",
+                type: "Post",
+                data: { 'id': id, 'fieldName': field, 'value': value },
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == "success") {
+                        $.sticky(' Updated Successfully ', { stickyClass: 'success' });
+                    }
+                }
+            });
+        }
+
+    </script>
+}
+

@@ -1,0 +1,32 @@
+@model IEnumerable<Notification>
+<li class="dropdown messages-menu">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+        <i class="fa fa-envelope-o"></i>
+        <span class="label label-success">@Model.Count()</span>
+    </a>
+    <ul class="dropdown-menu">
+        <li class="header">You have @Model.Count() messages</li>
+        <li>
+            <!-- inner menu: contains the actual data -->
+            <ul class="menu">
+                @if (Model.Any() && Model.Count() > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <li>
+                            <a href="~/Home/Noti/?uId=@item.UniqueId">
+                                <h4>
+                                    New Appointment
+                                    <small><i class="fa fa-clock-o"></i> @item.DateAdded.Value.ToTimeAgo() </small>
+                                </h4>
+                                <p>@item.Details </p>
+                            </a>
+                        </li>
+                    } 
+                }
+
+            </ul>
+        </li>
+        @*<li class="footer"><a href="#">See All Messages</a></li>*@
+    </ul>
+</li>

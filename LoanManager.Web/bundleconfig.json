@@ -1,0 +1,92 @@
+[
+  {
+    "outputFileName": "wwwroot/css/site.min.css",
+    "inputFiles": [
+      "wwwroot/css/site.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/site.min.js",
+    "inputFiles": [
+      "wwwroot/js/site.js"
+    ],
+    "minify": {
+      "enabled": true,
+      "renameLocals": true
+    }
+  },
+  {
+    "outputFileName": "wwwroot/datatable/datatablebundle.css",
+    "inputFiles": [
+      "wwwroot/datatable/dataTables.bootstrap.css",
+      "wwwroot/datatable/jquery.dataTables.min.css",
+      "wwwroot/datatable/buttons.dataTables.min.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/datatable/datatablebundle.js",
+    "inputFiles": [
+      "wwwroot/datatable/jquery.dataTables.min.js",
+      "wwwroot/datatable/dataTables.buttons.min.js",
+      "wwwroot/datatable/jszip.min.js",
+      "wwwroot/datatable/pdfmake.min.js",
+      "wwwroot/datatable/vfs_fonts.js",
+      "wwwroot/datatable/buttons.html5.min.js",
+      "wwwroot/datatable/buttons.colVis.min.js",
+      "wwwroot/datatable/buttons.print.min.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/modelpopup.min.js",
+    "inputFiles": [
+      "wwwroot/js/modelpopup.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/theme/bundle.css",
+    "inputFiles": [
+      "wwwroot/theme/bower_components/bootstrap/dist/css/bootstrap.css",
+      "wwwroot/theme/bower_components/font-awesome/css/font-awesome.css",
+      "wwwroot/theme/bower_components/Ionicons/css/ionicons.css",
+      "wwwroot/theme/dist/css/AdminLTE.css",
+      "wwwroot/theme/dist/css/skins/_all-skins.css",
+      "wwwroot/notifire/noti.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/theme/bundle.js",
+    "inputFiles": [
+      "wwwroot/theme/bower_components/jquery/dist/jquery.js",
+      "wwwroot/theme/bower_components/bootstrap/dist/js/bootstrap.js",
+      "wwwroot/theme/bower_components/jquery-slimscroll/jquery.slimscroll.js",
+      "wwwroot/theme/bower_components/fastclick/lib/fastclick.js",
+      "wwwroot/theme/dist/js/adminlte.js",
+      "wwwroot/theme/dist/js/demo.js",
+      "wwwroot/notifire/notij.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/theme/bundle.min.css",
+    "inputFiles": [
+      "wwwroot/theme/bundle.min.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/theme/bundle.min.js",
+    "inputFiles": [
+      "wwwroot/theme/bundle.min.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/datetimepicker/jquery.datetimepicker.min.css",
+    "inputFiles": [
+      "wwwroot/datetimepicker/jquery.datetimepicker.css"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/theme/Chart.min.js",
+    "inputFiles": [
+      "wwwroot/theme/Chart.js"
+    ]
+  }
+]

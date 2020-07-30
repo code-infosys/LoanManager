@@ -1,0 +1,121 @@
+@{
+    ViewBag.Title =  Localizer["AppSetting"].Value +" "+ Localizer["List"].Value;
+}
+
+@section ScriptsOrCss
+{
+<environment include="Development">
+    <link href="~/datatable/dataTables.bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/datatable/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/datatable/buttons.dataTables.min.css" rel="stylesheet" type="text/css" />
+
+    <script src="~/datatable/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="~/datatable/dataTables.buttons.min.js" type="text/javascript"></script>
+    <script src="~/datatable/jszip.min.js" type="text/javascript"></script>
+    <script src="~/datatable/pdfmake.min.js" type="text/javascript"></script>
+    <script src="~/datatable/vfs_fonts.js" type="text/javascript"></script>
+    <script src="~/datatable/buttons.html5.min.js" type="text/javascript"></script>
+    <script src="~/datatable/buttons.print.min.js"></script>
+    <script src="~/datatable/buttons.colVis.min.js"></script>
+    <script src="~/js/modelpopup.js"></script>
+</environment>
+<environment include="Production">
+    <link href="~/datatable/datatablebundle.min.css" rel="stylesheet" />
+    <script src="~/datatable/datatablebundle.min.js"></script>
+    <script src="~/js/modelpopup.min.js"></script>
+</environment> 
+}
+
+<section class="content-wrapper">
+    <!-- Small boxes (Stat box) -->
+    <section class="content-header">
+        <h1>
+            @ViewBag.Title
+        </h1>
+        <ol class="breadcrumb">
+            <li><a href="~/Home/"><i class="fa fa-dashboard"></i>@Localizer["Dashboard"]</a></li>
+        </ol>
+    </section>
+
+    <div class="content">
+
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <div class="btn-group">
+                            <a data-toggle="modal" asp-action="Create" data-target="#modal-action-base" class="btn btn-block btn-dropbox btn-xs">
+                                <i class="glyphicon glyphicon-plus"></i> @Localizer["Add"] @Localizer["AppSetting"] 
+                            </a>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body" style="overflow-x:auto">
+                        <table id="tbAppSetting" class="table table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th>@Localizer["Actions"]</th>
+                                    <th>@Localizer["Id"]</th>
+                                    <th>@Localizer["App Name"] </th>
+                                    <th>@Localizer["App Short Name"] </th>
+                                    <th>@Localizer["App Version"] </th>
+                                    <th>@Localizer["Is Toggle Sidebar"] </th>
+                                    <th>@Localizer["Is Boxed Layout"] </th>
+                                    <th>@Localizer["Is Fixed Layout"] </th>
+                                    <th>@Localizer["Is Toggle Right Sidebar"] </th>
+                                    <th>@Localizer["Skin"] </th>
+                                    <th>@Localizer["Footer Text"] </th>
+                                    <th>@Localizer["Logo"] </th>
+                                    <th>@Localizer["Login Page Background"] </th>
+                                    <th>@Localizer["Time Zone"] </th>
+
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot>
+                                <tr>
+                                    <td>
+                                        <select id="ddlSearchLength" name="ddlSearchLength" style="width:80px;padding:3px;">
+                                            <option value="500">@Localizer["From Last"] 500 </option>
+                                            <option value="1000">@Localizer["From Last"] 1000 </option>
+                                            <option value="2000">@Localizer["From Last"] 2000 </option>
+                                            <option value="5000">@Localizer["From Last"] 5000 </option>
+                                            <option value="10000">@Localizer["From Last"] 10000 </option>
+                                            <option value="0"> @Localizer["All"] </option>
+                                        </select>
+                                    </td>
+                                    <th>@Localizer["Id"]</th>
+                                    <th>@Localizer["App Name"] </th>
+                                    <th>@Localizer["App Short Name"] </th>
+                                    <th>@Localizer["App Version"] </th>
+                                    <th>@Localizer["Is Toggle Sidebar"] </th>
+                                    <th>@Localizer["Is Boxed Layout"] </th>
+                                    <th>@Localizer["Is Fixed Layout"] </th>
+                                    <th>@Localizer["Is Toggle Right Sidebar"] </th>
+                                    <th>@Localizer["Skin"] </th>
+                                    <th>@Localizer["Footer Text"] </th>
+                                    <th>@Localizer["Logo"] </th>
+                                    <th>@Localizer["Login Page Background"] </th>
+                                    <th>@Localizer["Time Zone"] </th>
+
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+@Html.Partial("_Modal", new BootstrapModel { ID = "modal-action-base", AreaLabeledId = "modal-action-base-label", Size = ModalSize.Large })
+
+@section Scripts
+    {
+    <script>
+    @await Component.InvokeAsync("DataTable", new { TableName = "AppSetting",Columns=new string[] { "id","appName","appShortName","appVersion","isToggleSidebar","isBoxedLayout","isFixedLayout","isToggleRightSidebar","skin","footerText","logo","loginPageBackground","timeZone" }})
+ 
+    @Html.DataTableRowDelete("AppSetting",Localizer["DeleteError"].Value,Localizer["DeleteSuccess"].Value)
+    </script>
+}

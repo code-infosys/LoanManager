@@ -1,0 +1,90 @@
+@model LoanManager.Models.Notification
+
+@Html.AjaxFormSubmiterV2("myForm", "tbNotification", true,  Localizer["ActionSuccess"].Value)
+
+<form id="myForm" asp-action="Edit" role="form" enctype="multipart/form-data">
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = Localizer["FillRequired"].Value })
+    <div class="modal-body form-horizontal">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label asp-for="TableName" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="TableName" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TableId" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="TableId" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Details" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="Details" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProcessToUrl" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="ProcessToUrl" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IsRead" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <select asp-for="IsRead" class="form-control">
+                            <option selected="selected" value="">Select</option>
+                            <option value="true">True</option>
+                            <option value="false">False</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-6">
+                        <input type="hidden" asp-for="AddedBy" value="@Model.AddedBy" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <div class="col-lg-6">
+                        <input type="hidden" asp-for="DateAdded" value="@Model.DateAdded" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-6">
+                        <input type="hidden" asp-for="ModifiedBy" value="@Env.GetUserInfo("Id",User.Claims)" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-6">
+                        <input type="hidden" asp-for="DateModified" value="@DateTime.Now.ToTimeZoneDate()" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ToUserId" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="ToUserId" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ToRoleId" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="ToRoleId" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="UniqueId" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="UniqueId" class="form-control" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    @await Html.PartialAsync("_ModalFooter", new ModalFooter { CancelButtonText = Localizer["Cancel"].Value, SubmitButtonText = Localizer["Submit"].Value })
+</form>

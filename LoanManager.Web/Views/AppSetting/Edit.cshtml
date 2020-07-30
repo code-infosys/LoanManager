@@ -1,0 +1,100 @@
+@model LoanManager.Models.AppSetting
+
+@Html.AjaxFormSubmiterV2("myForm", "tbAppSetting", true,  Localizer["ActionSuccess"].Value)
+
+<form id="myForm" asp-action="Edit" role="form" enctype="multipart/form-data">
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = Localizer["FillRequired"].Value })
+    <div class="modal-body form-horizontal">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label asp-for="AppName" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="AppName" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AppShortName" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="AppShortName" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="AppVersion" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="AppVersion" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IsToggleSidebar" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="IsToggleSidebar" style="margin-top:10px" type="checkbox" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IsBoxedLayout" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="IsBoxedLayout" style="margin-top:10px" type="checkbox" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IsFixedLayout" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="IsFixedLayout" style="margin-top:10px" type="checkbox" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label asp-for="IsToggleRightSidebar" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="IsToggleRightSidebar" style="margin-top:10px" type="checkbox" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Skin" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="Skin" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FooterText" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <textarea asp-for="FooterText" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Logo" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <div class="btn btn-default btn-file">
+                            <i class="fa fa-paperclip"></i>
+                            Logo
+                            <input asp-for="Logo" type="file" style="margin-top:10px" />
+                        </div>
+                        <input type="hidden" name="Logo11" value="@Model.Logo"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="LoginPageBackground" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <div class="btn btn-default btn-file">
+                            <i class="fa fa-paperclip"></i>
+                            LoginPageBackground
+                            <input asp-for="LoginPageBackground" type="file" style="margin-top:10px" />
+                        </div>
+                        <input type="hidden" name="LoginPageBackground12" value="@Model.LoginPageBackground"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="TimeZone" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="TimeZone" class="form-control" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    @await Html.PartialAsync("_ModalFooter", new ModalFooter { CancelButtonText = Localizer["Cancel"].Value, SubmitButtonText = Localizer["Submit"].Value })
+</form>

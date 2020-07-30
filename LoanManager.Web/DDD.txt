@@ -1,0 +1,43 @@
+1. Domain Entities layer
+{
+   Holds all models 
+}
+
+2. Data layer 
+{
+   Holds DbContext and all base repository genric
+   Maping classes
+   Need refference of Domain Entities layer
+}
+
+3. Repository
+{
+   Hold dynamic repository.
+   Need refferece of Data layer
+}
+
+4. Service layer
+{
+  Holds all Iservice and Service classes of all tables
+  Need refference of Domain Entities layer and Repository layer
+}
+___________
+
+5 Web Layer
+{
+  Model views controller .
+  Access data from servies layer.
+}
+
+Another layers If Need(Web/Unit Test/Api)
+
+
+__________________
+other remembers
+for connect my sql use
+Install-Package Pomelo.EntityFrameworkCore.Mysql -version 2.1.0-rc1-final
+
+using nuget console and modify any reference of options.UseMySQL to options.UseMySql. 
+
+Install-Package Microsoft.VisualStudio.Web.CodeGeneration.Design -Version 2.1.6  
+__________________

@@ -1,0 +1,42 @@
+@model LoanManager.Models.GeneralSetting
+
+@Html.AjaxFormSubmiterV2("myForm", "tbGeneralSetting", true,  Localizer["ActionSuccess"].Value)
+
+<form id="myForm" asp-action="Edit" role="form" enctype="multipart/form-data">
+    @await Html.PartialAsync("_ModalHeader", new ModalHeader { Heading = Localizer["FillRequired"].Value })
+    <div class="modal-body form-horizontal">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label asp-for="SettingKey" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="SettingKey" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SettingValue" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <textarea asp-for="SettingValue" class="form-control"></textarea>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-lg-6">
+                <div class="form-group">
+                    <label asp-for="Description" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="Description" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SettingGroup" class="col-lg-4 col-sm-6 control-label"></label>
+                    <div class="col-lg-6">
+                        <input asp-for="SettingGroup" class="form-control" />
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    @await Html.PartialAsync("_ModalFooter", new ModalFooter { CancelButtonText = Localizer["Cancel"].Value, SubmitButtonText = Localizer["Submit"].Value })
+</form>

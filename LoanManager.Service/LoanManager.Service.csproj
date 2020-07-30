@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LoanManager.Data\LoanManager.Data.csproj" />
+    <ProjectReference Include="..\LoanManager.Repo\LoanManager.Repo.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup> 
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.18" /> 
+  </ItemGroup>
+</Project>
+

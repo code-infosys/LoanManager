@@ -1,0 +1,196 @@
+﻿@model LoanManager.Models.User
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>@Localizer["LoanManager"] | @Localizer["Register"] www.codeinfosys.in</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    <meta name="google-signin-client_id" content="@ViewBag.GoogleKeyForLogin">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/theme/bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="~/theme/bower_components/font-awesome/css/font-awesome.min.css">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="~/theme/bower_components/Ionicons/css/ionicons.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="~/theme/dist/css/AdminLTE.min.css">
+        <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
+        <link rel="stylesheet" href="~/theme/dist/css/skins/_all-skins.min.css">
+        <!-- jQuery 3 -->
+        @*<script src="~/theme/bower_components/jquery/dist/jquery.min.js"></script>*@
+
+        <!-- Google Font -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+        <link href="~/notifire/noti.css" rel="stylesheet" />
+        <script src="~/notifire/notij.js"></script>
+    </environment>
+
+    <environment include="Production">
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <link href="~/theme/bundle.min.css" rel="stylesheet" />
+        <script src="~/notifire/notij.js"></script>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    </environment>
+
+
+
+    <script>
+        // This is called with the results from from FB.getLoginStatus().
+        function statusChangeCallback(response) {
+            console.log('statusChangeCallback');
+            console.log(response);
+            
+            if (response.status === 'connected') { 
+                testAPI();
+            } else if (response.status === 'not_authorized') { 
+                console.log("not authorized");
+            } else { 
+                console.log("some error");
+            }
+        } 
+        function checkLoginState() {
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+        }
+        window.fbAsyncInit = function () { 
+            FB.init({
+                appId: '@ViewBag.FbAppId',
+                cookie: true, // enable cookies to allow the server to access
+                // the session
+                xfbml: true, // parse social plugins on this page
+                version: 'v2.2' // use version 2.2
+            });
+             
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response);
+            });
+        };
+        // Load the SDK asynchronously
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        // Here we run a very simple test of the Graph API after login is
+        // successful. See statusChangeCallback() for when this call is made.
+        function testAPI() {
+            console.log('Welcome! Fetching your information.... ');
+            FB.api('/me?fields=name,email', function (response) { 
+                $("#UserName").val(response.name);
+                $("#FirstName").val(response.name);
+                $("#Email").val(response.email); 
+            }); 
+            //FB.logout(function (response) {
+            //    alert("success");
+            //});
+        }
+    </script>
+
+
+</head>
+<body class="hold-transition login-page" style="background-image:url('/uploads/@ViewBag.LoginPageBackground');background-position:center;background-repeat:no-repeat;background-color:#fff;">
+     
+    <div class="login-box">
+        <div class="login-logo">
+            <a href="~/"><b style="color:#fff;">LoanManager</b></a>
+        </div>
+        <!-- /.login-logo -->
+        <div class="login-box-body">
+            <p class="login-box-msg">@Localizer["Sign in to start your session"]</p>
+            @if (!ViewContext.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    <div asp-validation-summary="All"></div>
+                </div>
+            }
+            <form asp-action="register" id="frmRegister" method="post">
+                <div class="form-group has-feedback">
+                    <input type="text" class="form-control" asp-for="UserName" placeholder="@Localizer["User Name"]">
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="password" class="form-control" asp-for="Password" placeholder="@Localizer["Password"]">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="password" class="form-control" name="NewPasswordConfirm" placeholder="@Localizer["New Password Confirm"]">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+                </div>
+                
+                <div class="form-group has-feedback">
+                    <input type="text" class="form-control" asp-for="Email" placeholder="@Localizer["Email"]">
+                    <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                </div>
+                <div class="form-group has-feedback">
+                    <input type="hidden" value="true" asp-for="IsActive">
+                    <input type="hidden" asp-for="DateModified" value="@DateTime.Now" />
+                    <input type="hidden" asp-for="DateAdded" value="@DateTime.Now" />
+                </div>
+                <div class="row">
+                    <div class="col-xs-4">
+                        <button type="submit" class="btn btn-primary btn-block btn-flat">@Localizer["Register"]</button>
+                    </div>
+                </div>
+            </form>
+
+            <div class="social-auth-links text-center">
+                <p>- OR -</p>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="g-signin2" id="my-signin2" data-onsuccess="onSignIn"></div>
+                    </div>
+                    <div class="col-xs-6">
+                        <fb:login-button class="btn btn-facebook" scope="public_profile,email" onlogin="checkLoginState();">
+                        </fb:login-button>
+                    </div>
+                </div> 
+                <br />
+                 
+            </div>
+
+            <!-- /.social-auth-links -->
+
+            <a href="~/Auth/login" class="text-center">@Localizer["Already membership"]</a>
+
+        </div>
+        <!-- /.login-box-body -->
+    </div>
+    <!-- /.login-box -->
+    <script>
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            $("#UserName").val(googleUser.getBasicProfile().getName());
+            $("#FirstName").val(googleUser.getBasicProfile().getName());
+            $("#Email").val(googleUser.getBasicProfile().getEmail());
+
+            signOut();
+        }
+
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () { });
+        }
+
+    </script>
+    <script type="text/javascript">
+         @Html.JsonFormSubmitter("frmRegister",true,"location='/auth/login';")
+    </script>
+
+</body>
+</html>
+
+

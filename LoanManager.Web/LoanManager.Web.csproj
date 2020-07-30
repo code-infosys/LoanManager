@@ -1,0 +1,73 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+ <ItemGroup>
+    <Content Include="wwwroot\theme\bower_components\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="wwwroot\theme\bower_components\bootstrap\dist\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="wwwroot\theme\bower_components\bootstrap\dist\fonts\glyphicons-halflings-regular.woff" />
+
+    <Content Include="wwwroot\theme\bower_components\font-awesome\fonts\fontawesome-webfont.eot" />
+    <Content Include="wwwroot\theme\bower_components\font-awesome\fonts\fontawesome-webfont.ttf" />
+    <Content Include="wwwroot\theme\bower_components\font-awesome\fonts\fontawesome-webfont.woff" />
+    <Content Include="wwwroot\theme\bower_components\font-awesome\fonts\FontAwesome.otf" />
+    <Content Include="wwwroot\theme\bower_components\Ionicons\fonts\ionicons.eot" />
+    <Content Include="wwwroot\theme\bower_components\Ionicons\fonts\ionicons.ttf" />
+    <Content Include="wwwroot\theme\bower_components\Ionicons\fonts\ionicons.woff" /> 
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.6">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="MySql.Data" Version="8.0.16" />
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.16" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.Mysql" Version="2.2.0" />
+    <PackageReference Include="System.Linq.Dynamic.Core" Version="1.0.18" />
+    <PackageReference Include="OrchardCore.Localization.Core" Version="1.0.0-beta3-71075" />
+  </ItemGroup>
+
+  <ItemGroup> 
+    <None Include="wwwroot\theme\bower_components\bootstrap\dist\fonts\glyphicons-halflings-regular.svg" />
+    <None Include="wwwroot\theme\bower_components\bootstrap\dist\fonts\glyphicons-halflings-regular.woff2" />
+    <None Include="wwwroot\theme\bower_components\font-awesome\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\theme\bower_components\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\theme\bower_components\Ionicons\fonts\ionicons.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LoanManager.Data\LoanManager.Data.csproj" />
+    <ProjectReference Include="..\LoanManager.Repo\LoanManager.Repo.csproj" />
+    <ProjectReference Include="..\LoanManager.Service\LoanManager.Service.csproj" />
+  </ItemGroup>
+ 
+  <ItemGroup>
+    <TypeScriptCompile Include="wwwroot\theme\bower_components\moment\moment.d.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\User\Edit.cshtml">
+      <Pack>$(IncludeRazorContentInPack)</Pack>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Dashboard\" />
+  </ItemGroup>
+
+</Project>
+
